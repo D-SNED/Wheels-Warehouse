@@ -2,8 +2,8 @@
 
 Team:
 
-* Paola Alcala - Sales microservice?
-* Person 2 - Which microservice?
+* Paola Alcala - Sales microservice
+* Derek Snediker - Service microservice
 
 ## Design
 
