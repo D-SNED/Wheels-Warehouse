@@ -21,7 +21,7 @@ class AutomobileVO(models.Model):
 class Appointment(models.Model):
     date_time = models.DateTimeField(auto_now=False)
     reason = models.CharField(max_length=500)
-    status = models.CharField(max_length=200, null=True)
+    status = models.CharField(max_length=200, default="scheduled")
     vin = models.CharField(max_length=200)
     customer = models.CharField(max_length=200)
     is_vip = models.CharField(max_length=200, null=True)

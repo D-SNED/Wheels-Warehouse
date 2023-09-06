@@ -83,13 +83,34 @@ def api_list_appointments(request):
 
 @require_http_methods(["DELETE", "PUT"])
 def api_appointment(request, id):
-    try:
-        appointment = Appointment.objects.get(id=id)
-        appointment.delete()
-        return JsonResponse(
-            appointment,
-            encoder=AppointmentEncoder,
-            safe=False,
-        )
-    except Appointment.DoesNotExist:
-        return JsonResponse({"message": "Appointment does not exist"})
+    if request.method == "DELETE":
+        try:
+            appointment = Appointment.objects.get(id=id)
+            appointment.delete()
+            return JsonResponse(
+                appointment,
+                encoder=AppointmentEncoder,
+                safe=False,
+            )
+        except Appointment.DoesNotExist:
+            return JsonResponse(
+                {"message": "Appointment does not exist"}
+            )
+    else:
+        try:
+            content = json.loads(request.body)
+            appointment = Appointment.objects.get(id=id)
+            props = ["status"]
+            for prop in props:
+                if prop in content:
+                    setattr(appointment, prop, content[prop])
+                appointment.save()
+            return JsonResponse(
+                appointment,
+                encoder=AppointmentEncoder,
+                safe=False,
+            )
+        except Appointment.DoesNotExist:
+            response = JsonResponse({"message": "Does not exist"})
+            response.status_code = 404
+            return response
