@@ -9,7 +9,7 @@ class Technician(models.Model):
     employee_id = models.CharField(max_length=200)
 
     def get_api_url(self):
-        return reverse("api_technician", kwargs={"pk": self.id})
+        return reverse("api_delete_technician", kwargs={"pk": self.id})
 
     def __str__(self):
         return self.employee_id
@@ -21,7 +21,7 @@ class AutomobileVO(models.Model):
 class Appointment(models.Model):
     date_time = models.DateTimeField(auto_now=False)
     reason = models.CharField(max_length=500)
-    status = models.CharField(max_length=200)
+    status = models.CharField(max_length=200, null=True)
     vin = models.CharField(max_length=200)
     customer = models.CharField(max_length=200)
     is_vip = models.CharField(max_length=200, null=True)
@@ -30,3 +30,9 @@ class Appointment(models.Model):
         related_name="technicians",
         on_delete=models.CASCADE,
     )
+
+    def get_api_url(self):
+        return reverse("api_appointment_details", kwargs={"pk": self.id})
+
+    def __str__(self):
+        return self.customer

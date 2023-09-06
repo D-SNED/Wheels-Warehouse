@@ -3,8 +3,8 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import json
 
-from .encoders import TechnicianEncoder
-from .models import Technician
+from .encoders import TechnicianEncoder, AppointmentEncoder
+from .models import Technician, Appointment
 
 # Create your views here.
 
@@ -47,3 +47,49 @@ def api_delete_technician(request, id):
         )
     except Technician.DoesNotExist:
         return JsonResponse({"message": "Does not exist"})
+
+
+@require_http_methods(["GET", "POST"])
+def api_list_appointments(request):
+    if request.method == "GET":
+        appointments = Appointment.objects.all()
+        print(appointments)
+
+        return JsonResponse(
+            {"appointments": appointments},
+            encoder = AppointmentEncoder
+        )
+    else:
+        content = json.loads(request.body)
+        print(content)
+        try:
+            employee_id = content["technician"]
+            technician = Technician.objects.get(employee_id=employee_id)
+            content["technician"] = technician
+
+        except Technician.DoesNotExist:
+            return JsonResponse(
+                {"message": "Invalid employee id"},
+                status = 400,
+            )
+
+        appointment = Appointment.objects.create(**content)
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe=False,
+        )
+
+
+@require_http_methods(["DELETE", "PUT"])
+def api_appointment(request, id):
+    try:
+        appointment = Appointment.objects.get(id=id)
+        appointment.delete()
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe=False,
+        )
+    except Appointment.DoesNotExist:
+        return JsonResponse({"message": "Appointment does not exist"})

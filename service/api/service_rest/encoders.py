@@ -1,5 +1,5 @@
 from common.json import ModelEncoder
-from .models import Technician
+from .models import Technician, Appointment
 
 class TechnicianEncoder(ModelEncoder):
     model = Technician
@@ -9,3 +9,17 @@ class TechnicianEncoder(ModelEncoder):
         "last_name",
         "employee_id",
     ]
+
+
+class AppointmentEncoder(ModelEncoder):
+    model = Appointment
+    properties = [
+        "id",
+        "date_time",
+        "reason",
+        "vin",
+        "customer",
+        "is_vip",
+        "technician",
+    ]
+    encoders = {"technician": TechnicianEncoder()}
