@@ -4,6 +4,7 @@ import Nav from './Nav';
 import SalespeopleList from './SalespeopleList';
 import SalespersonForm from './SalespersonForm';
 import TechnicianList from './TechnicianList';
+import TechnicianForm from './CreateTechnician';
 import CustomersList from './CustomersList';
 import CustomerForm from './CustomerForm';
 
@@ -24,6 +25,7 @@ function App() {
           </Route>
           <Route path="technicians">
             <Route index element={<TechnicianList/>} />
+            <Route path="create" element={<TechnicianForm/>} />
           </Route>
         </Routes>
       </div>
