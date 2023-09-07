@@ -100,19 +100,19 @@ function CustomerForm () {
                     <form onSubmit={handleSubmit} id="create-salesperson-form">
                         <div className="form-floating mb-3">
                             <input onChange={handleFirstNameChange} value={firstName} placeholder="First name" required type="text" name="first_name" id="first_name" className="form-control" />
-                            <label htmlFor="manufacturer">First name</label>
+                            <label htmlFor="first_name">First name</label>
                         </div>
                         <div className="form-floating mb-3">
                             <input onChange={handleLastNameChange} value={lastName} placeholder="Last Name" required type="text" name="last_name" id="last_name" className="form-control" />
-                            <label htmlFor="model_name">Last name</label>
+                            <label htmlFor="last_name">Last name</label>
                         </div>
                         <div className="form-floating mb-3">
                             <input onChange={handleAddressChange} value={address} placeholder="Address" required type="text" name="address" id="address" className="form-control" />
-                            <label htmlFor="color">Address</label>
+                            <label htmlFor="address">Address</label>
                         </div>
                         <div className="form-floating mb-3">
                             <input onChange={handlePhoneNumberChange} value={phoneNumber} placeholder="Phone number" required type="text" name="phone_number" id="phone_number" className="form-control" />
-                            <label htmlFor="color">Phone number</label>
+                            <label htmlFor="phone_number">Phone number</label>
                         </div>
                         <button className="btn btn-primary">Create</button>
                         {isSuccessVisible && (
