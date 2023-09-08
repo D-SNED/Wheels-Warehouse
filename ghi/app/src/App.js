@@ -13,6 +13,8 @@ import ServiceHistory from './ServiceHistory';
 import SalesList from './SalesList';
 import SaleForm from './SaleForm';
 import SalehistoryList from './SalehistoryList';
+import ModelList from './ModelList';
+import ModelForm from './ModelForm';
 
 function App() {
   return (
@@ -42,6 +44,10 @@ function App() {
             <Route index element={<AppointmentList/>} />
             <Route path="create" element={<AppointmentForm/>} />
             <Route path="history" element={<ServiceHistory/>} />
+          </Route>
+          <Route path="models">
+            <Route index element={<ModelList />} />
+            <Route path="create" element={<ModelForm />} />
           </Route>
         </Routes>
       </div>

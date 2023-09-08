@@ -15,15 +15,17 @@ function SaleForm () {
     const [isErrorVisible, setIsErrorVisible] = useState(false);
 
 
-    useEffect(() => {
     const fetchAutos = async () => {
         const url = `http://localhost:8100/api/automobiles/`;
         const response = await fetch(url);
 
         if (response.ok) {
             const data = await response.json();
+            // const showUnsold = data.autos.filter(auto => auto.sold === "false")
             setAutos(data.autos);
+            console.log(data)
         }
+
     }
 
     const fetchSalespeople = async () => {
@@ -46,6 +48,7 @@ function SaleForm () {
         }
     }
 
+    useEffect(() => {
         fetchAutos();
         fetchSalespeople();
         fetchCustomers();
@@ -55,6 +58,13 @@ function SaleForm () {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const selectedAuto = autos.find(auto => auto.vin === automobile);
+        if (!selectedAuto || selectedAuto.sold !== "unsold") {
+            setErrorMessage('Selected automobile is not available for sale.');
+            setIsErrorVisible(true);
+            return;
+        }
 
         const data = {};
 
@@ -83,7 +93,7 @@ function SaleForm () {
             setPrice('');
 
             // success and error message
-            setSuccessMessage('Sale created successfully!');
+            setSuccessMessage('Sale was recorded successfully!');
             setIsSuccessVisible(true);
 
             setErrorMessage('');
@@ -142,11 +152,13 @@ function SaleForm () {
                     <div className="form-floating mb-3">
                             <select onChange={handleAutomobileChange} value={automobile} required name="automobile" id="automobile" className="form-select" >
                                 <option defaultValue value="">Choose an Automobile VIN</option>
-                                {autos.map(auto => {
-                                    return (
-                                        <option key={auto.vin} value={auto.vin}>{auto.vin} {auto.sold}</option>
-                                    )
-                                })}
+                                {autos
+                                    // .filter(auto => auto.sold === "false")
+                                    .map(auto => {
+                                        return (
+                                            <option key={auto.vin} value={auto.vin}>{auto.vin}</option>
+                                        )
+                                    })}
                             </select>
                         </div>
                         <label htmlFor="salesperson">Salesperson</label>

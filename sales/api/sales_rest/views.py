@@ -155,7 +155,6 @@ def api_list_sales(request):
         try:
             salesperson_id = content["salesperson"]
             salesperson = Salesperson.objects.get(id=salesperson_id)
-            print(content)
             content["salesperson"] = salesperson
         except Salesperson.DoesNotExist:
             return JsonResponse(
