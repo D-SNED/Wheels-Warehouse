@@ -19,8 +19,6 @@ function SalespersonForm () {
         data.last_name = lastName;
         data.employee_id = employeeId;
 
-        console.log(data);
-
         const salespersonUrl = 'http://localhost:8090/api/salespeople/'
         const fetchConfig = {
             method: "post",

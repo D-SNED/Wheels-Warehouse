@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import json
+import requests
 from common.json import ModelEncoder
 from .models import AutomobileVO, Salesperson, Customer, Sale
 
@@ -82,7 +83,7 @@ def api_show_salesperson(request, pk):
         )
     elif request.method == "DELETE":
         try:
-            count, _ = Salesperson.objects.get(id=pk).delete()
+            count, _ = Salesperson.objects.filter(id=pk).delete()
             return JsonResponse({"deleted": count > 0})
         except Salesperson.DoesNotExist:
             return JsonResponse(
@@ -122,7 +123,7 @@ def api_show_customer(request, pk):
         )
     elif request.method == "DELETE":
         try:
-            count, _ = Customer.objects.get(id=pk).delete()
+            count, _ = Customer.objects.filter(id=pk).delete()
             return JsonResponse({"deleted": count > 0})
         except Customer.DoesNotExist:
             return JsonResponse(
@@ -190,7 +191,7 @@ def api_show_sale(request, pk):
         )
     elif request.method == "DELETE":
         try:
-            count, _ = Sale.objects.get(id=pk).delete()
+            count, _ = Sale.objects.filter(id=pk).delete()
             return JsonResponse({"deleted": count > 0})
         except Sale.DoesNotExist:
             return JsonResponse(
