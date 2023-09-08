@@ -16,6 +16,7 @@ import SalehistoryList from './SalehistoryList';
 import ManufacturerList from './ManufacturerList';
 import ManufacturerForm from './ManufacturerForm';
 import AutomobileList from './AutomobileList';
+import CreateAuto from './CreateAuto';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
           </Route>
           <Route path="automobiles">
             <Route index element={<AutomobileList/>} />
+            <Route path="create" element={<CreateAuto/>} />
           </Route>
         </Routes>
       </div>
