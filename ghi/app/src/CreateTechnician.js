@@ -48,8 +48,8 @@ function TechnicianForm() {
 
         const response = await fetch(technicianUrl, fetchConfig);
         if (response.ok) {
-            const newTechnician = await response.json();
-            console.log("Technician created: ", newTechnician);
+            //const newTechnician = await response.json();
+            //console.log("Technician created: ", newTechnician);
 
             setFirstName("");
             setLastName("");
