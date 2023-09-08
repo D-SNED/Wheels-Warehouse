@@ -31,7 +31,7 @@ function AppointmentList(){
         };
         const response = await fetch(cancelUrl, fetchConfig);
         if(response.ok){
-            console.log("appointment canceled");
+
             fetchData();
         }
     }
@@ -47,7 +47,7 @@ function AppointmentList(){
         };
         const response = await fetch(finishUrl, fetchConfig);
         if(response.ok){
-            console.log("appointment finished");
+
             fetchData();
 
         }

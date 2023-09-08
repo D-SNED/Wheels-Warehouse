@@ -57,8 +57,8 @@ function CreateAuto(){
 
         const response = await fetch(autoUrl, fetchConfig);
         if(response.ok){
-            const newAuto = await response.json();
-            console.log("Auto created: ", newAuto);
+            //const newAuto = await response.json();
+            //console.log("Auto created: ", newAuto);
 
             setColor("");
             setYear("");
