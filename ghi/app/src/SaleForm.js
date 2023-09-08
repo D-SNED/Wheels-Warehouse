@@ -9,21 +9,24 @@ function SaleForm () {
     const [customer, setCustomer] = useState('')
     const [price, setPrice] = useState('')
 
+    const [soldStatus, setSoldStatus] = useState('')
+
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [isSuccessVisible, setIsSuccessVisible] = useState(false);
     const [isErrorVisible, setIsErrorVisible] = useState(false);
 
 
-    useEffect(() => {
     const fetchAutos = async () => {
         const url = `http://localhost:8100/api/automobiles/`;
         const response = await fetch(url);
 
         if (response.ok) {
             const data = await response.json();
-            setAutos(data.autos);
+            const showUnsold = data.autos.filter(auto => auto.sold === false)
+            setAutos(showUnsold);
         }
+
     }
 
     const fetchSalespeople = async () => {
@@ -46,12 +49,21 @@ function SaleForm () {
         }
     }
 
+    useEffect(() => {
         fetchAutos();
         fetchSalespeople();
         fetchCustomers();
     }, [])
 
 
+    const handleSoldStatus = (automobile) => {
+        const selectedAuto = autos.find(auto => auto.vin === automobile);
+        if (selectedAuto) {
+            setSoldStatus(selectedAuto.sold === true);
+        } else {
+            setSoldStatus(false);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -77,13 +89,27 @@ function SaleForm () {
             const newSale = await response.json();
             console.log(newSale);
 
+            const updatedAutoUrl = `http://localhost:8100/api/automobiles/${automobile}/`;
+            const updatedAutoConfig = {
+                method: "PUT",
+                body: JSON.stringify({sold: true}),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            };
+
+            const updateAutoResponse = await fetch(updatedAutoUrl, updatedAutoConfig);
+            if (updateAutoResponse.ok) {
+
+
             setAutomobile('');
             setSalesperson('');
             setCustomer('');
             setPrice('');
 
+
             // success and error message
-            setSuccessMessage('Sale created successfully!');
+            setSuccessMessage('Sale was recorded successfully!');
             setIsSuccessVisible(true);
 
             setErrorMessage('');
@@ -93,6 +119,8 @@ function SaleForm () {
                 setIsSuccessVisible(false);
                 setSuccessMessage('');
             }, 1000);
+
+            }
 
         } else {
             const errorData = await response.json();
@@ -107,6 +135,8 @@ function SaleForm () {
                 setIsErrorVisible(false);
                 setErrorMessage('');
             }, 1000);
+
+
 
         }
 
@@ -144,7 +174,7 @@ function SaleForm () {
                                 <option defaultValue value="">Choose an Automobile VIN</option>
                                 {autos.map(auto => {
                                     return (
-                                        <option key={auto.vin} value={auto.vin}>{auto.vin} {auto.sold}</option>
+                                        <option key={auto.vin} value={auto.vin}>{auto.vin}</option>
                                     )
                                 })}
                             </select>
