@@ -11,7 +11,7 @@ function Nav() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link" to="technicians">Technicians</NavLink>
+              <NavLink className="nav-link" to="/technicians">Technicians</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="technicians/create">Add a technician</NavLink>
@@ -45,6 +45,9 @@ function Nav() {
           </li>
           <li className="nav-item">
               <NavLink className="nav-link" to="/sales/history/">Sales History</NavLink>
+          </li>
+          <li className="nav-item">
+              <NavLink className="nav-link" to="/manufacturers">Manufacturers</NavLink>
           </li>
           </ul>
         </div>
