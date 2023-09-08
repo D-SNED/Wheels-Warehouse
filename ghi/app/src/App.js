@@ -9,6 +9,7 @@ import CustomersList from './CustomersList';
 import CustomerForm from './CustomerForm';
 import AppointmentForm from './CreateAppointment';
 import AppointmentList from './AppointmentList';
+import ServiceHistory from './ServiceHistory';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="appointments">
             <Route index element={<AppointmentList/>} />
             <Route path="create" element={<AppointmentForm/>} />
+            <Route path="history" element={<ServiceHistory/>} />
           </Route>
         </Routes>
       </div>
