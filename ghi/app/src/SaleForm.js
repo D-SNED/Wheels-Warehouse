@@ -59,12 +59,13 @@ function SaleForm () {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const selectedAuto = autos.find(auto => auto.vin === automobile);
-        if (!selectedAuto || selectedAuto.sold !== "unsold") {
-            setErrorMessage('Selected automobile is not available for sale.');
-            setIsErrorVisible(true);
-            return;
-        }
+        // This doesn't filter but it prevents an already sold vehicle from being able to be added to a sale
+        // const selectedAuto = autos.find(auto => auto.vin === automobile);
+        // if (!selectedAuto || selectedAuto.sold !== "unsold") {
+        //     setErrorMessage('Selected automobile is not available for sale.');
+        //     setIsErrorVisible(true);
+        //     return;
+        // }
 
         const data = {};
 
