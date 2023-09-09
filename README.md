@@ -12,7 +12,6 @@ This applicattion runs by building Docker containers and Docker images. Docker D
 2. Follow the following git commands
 
 ```
-
 git clone <<forked repo url>>
 cd project-beta/
 docker volumne create beta-data
@@ -29,7 +28,7 @@ The front-end of the application uses React, the back-end uses Django, and the d
 ![Diagram](ghi/app/src/diagram.png)
 
 ## Frontend Navigation
-Project Beta Frontend can be viewed in browser: http://localhost:3000
+Project CarCar Frontend can be viewed in browser at: http://localhost:3000
 
 ### Feature page links
 
@@ -101,3 +100,179 @@ microservice, here.
 
 Explain your models and integration with the inventory
 microservice, here.
+
+The Sales microservice manages automobile sales, customer information and salespeople information. Sales microservice consists of three mian parts; sales, salespeople, amd customers. I created four models named Sale, Salesperson, Customer and an Atomobile VO model. The Automobile VO model retrieves the automobile entity object's data from the Inventory microservice using polling.
+
+### Models
+
+**AutomobileVO**
+
+Retrieves the vin and sold status of an existing Automobile in the inventory
+
+| Name        | Data Type     | Explanation
+| ----------- | ----------- | ------------- |
+| vin  | CharField | Auto's vin |
+| sold | BooleanField | Auto's sold status |
+
+**Sale**
+
+Uses 3 foreign keys to associate with the AutomobileVO, salesperson, and customer models to retrieve some of their attributes as well as take and input for price.
+
+| Name        | Data Type     | Explanation
+| ----------- | ----------- | ------------- |
+| price | CharField | price of Auto |
+| automobile | ForeignKey | Auto assigned to sale |
+| salesperson | ForeignKey | salesperson assigned to sale |
+| customer | ForeignKey | customer assigned to sale |
+
+**Salesperson**
+
+Takes 3 input fields; first name, last name, and an employee id.
+
+| Name        | Data Type     | Explanation
+| ----------- | ----------- | ------------- |
+| first_name | CharField | salesperson's first name |
+| last_name | CharField | salesperson's last name|
+| employee_id | CharField | salesperson employee Id |
+
+**Customer**
+
+Takes 4 input fields; first name, last name, address and phone number.
+
+| Name        | Data Type     | Explanation
+| ----------- | ----------- | ------------- |
+| first_name | CharField | customer's first name |
+| last_name | CharField | customer's last name |
+| address | CharField | customer's address |
+| phone_number | CharField | customer's phone number |
+
+### Endpoints
+
+**Sales**
+
+| Feature     | Method       | URL |
+| ----------- | ----------- | ------------|
+| List of sales | GET | http://localhost:8090/api/sales/ |
+| Create a sale | POST | http://localhost:8090/api/sales/ |
+| Delete a sale | DELETE | http://localhost:8090/api/sales/int:id/ |
+
+```
+// Example JSON input //
+{
+	"price": "18000",
+	"salesperson": "3",
+	"customer": "8",
+	"automobile": "1P4GH44R0RX359386"
+}
+
+// expected returned output //
+
+{
+	"href": "/api/sales/25/",
+	"price": "18000",
+	"automobile": {
+		"vin": "1P4GH44R0RX359386",
+		"sold": false,
+		"id": 7
+	},
+	"salesperson": {
+		"first_name": "Paola",
+		"last_name": "Alcala",
+		"employee_id": "1234",
+		"id": 3
+	},
+	"customer": {
+		"first_name": "Kris",
+		"last_name": "Vigil",
+		"address": "5326 Sierra Ave Rilato Ca",
+		"phone_number": "9517796352",
+		"id": 8
+	},
+	"id": 25
+}
+
+```
+
+```
+// expected returned output after a sale is deleted //
+
+{
+	"deleted": true
+}
+
+```
+
+**Salespeople**
+
+| Feature     | Method       | URL |
+| ----------- | ----------- | ------------|
+| List of salespeople | GET | http://localhost:8090/api/salespeople/ |
+| Create a salesperson | POST | http://localhost:8090/api/salespeople/ |
+| Delete a salesperson | DELETE | http://localhost:8090/api/salespeople/int:id/ |
+
+```
+// Example JSON input //
+
+{
+	"first_name": "Paola",
+	"last_name": "Alcala",
+	"employee_id": "1234"
+}
+
+// expected returned output //
+
+```
+{
+	"first_name": "Paola",
+	"last_name": "Alcala",
+	"employee_id": "1234",
+	"id": 3
+}
+
+```
+// expected returned output after a sale is deleted //
+
+{
+	"deleted": true
+}
+
+```
+
+**Customer**
+
+| Feature     | Method       | URL |
+| ----------- | ----------- | ------------|
+| List of customers | GET | http://localhost:8090/api/customers/ |
+| Create a customer | POST | http://localhost:8090/api/customers/ |
+| Delete a customer | DELETE | http://localhost:8090/api/customers/int:id/ |
+
+```
+// Example JSON input //
+
+{
+	"first_name": "Derek",
+	"last_name": "Snediker",
+	"address": "3032 Tyler Ave Riverside Ca",
+	"phone_number": "9519512563"
+}
+
+// expected returned output //
+
+{
+	"first_name": "Brenda",
+	"last_name": "Ayala",
+	"address": "3032 Tyler Ave Riverside Ca",
+	"phone_number": "9519512563",
+	"id": 3
+}
+
+```
+
+```
+// expected returned output after a sale is deleted //
+
+{
+	"deleted": false
+}
+
+```
