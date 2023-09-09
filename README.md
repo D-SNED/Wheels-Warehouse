@@ -101,7 +101,7 @@ microservice, here.
 Explain your models and integration with the inventory
 microservice, here.
 
-The Sales microservice manages automobile sales, customer information and salespeople information. Sales microservice consists of three mian parts; sales, salespeople, amd customers. I created four models named Sale, Salesperson, Customer and an Atomobile VO model. The Automobile VO model retrieves the automobile entity object's data from the Inventory microservice using polling.
+The Sales microservice manages automobile sales, customer information and salespeople information. Sales microservice consists of three main parts; sales, salespeople, amd customers. I created four models named Sale, Salesperson, Customer and an Atomobile VO model. The Automobile VO model retrieves the automobile entity object's data from the Inventory microservice using polling.
 
 ### Models
 
@@ -116,7 +116,7 @@ Retrieves the vin and sold status of an existing Automobile in the inventory
 
 **Sale**
 
-Uses 3 foreign keys to associate with the AutomobileVO, salesperson, and customer models to retrieve some of their attributes as well as take and input for price.
+Takes an input for price and uses 3 foreign keys to associate with the AutomobileVO, salesperson, and customer models to retrieve some of their attributes.
 
 | Name        | Data Type     | Explanation
 | ----------- | ----------- | ------------- |
@@ -221,13 +221,14 @@ Takes 4 input fields; first name, last name, address and phone number.
 
 // expected returned output //
 
-```
 {
 	"first_name": "Paola",
 	"last_name": "Alcala",
 	"employee_id": "1234",
 	"id": 3
 }
+
+```
 
 ```
 // expected returned output after a sale is deleted //
