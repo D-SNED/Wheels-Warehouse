@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function SaleForm () {
     const [autos, setAutos] = useState([])
@@ -11,11 +12,7 @@ function SaleForm () {
 
     const [soldStatus, setSoldStatus] = useState('')
 
-    const [successMessage, setSuccessMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [isSuccessVisible, setIsSuccessVisible] = useState(false);
-    const [isErrorVisible, setIsErrorVisible] = useState(false);
-
+    const navigate = useNavigate();
 
     const fetchAutos = async () => {
         const url = `http://localhost:8100/api/automobiles/`;
@@ -107,34 +104,10 @@ function SaleForm () {
             setCustomer('');
             setPrice('');
 
-
-            // success and error message
-            setSuccessMessage('Sale was recorded successfully!');
-            setIsSuccessVisible(true);
-
-            setErrorMessage('');
-            setIsErrorVisible(false);
-
-            setTimeout(() => {
-                setIsSuccessVisible(false);
-                setSuccessMessage('');
-            }, 1000);
+            navigate('/sales');
 
             }
 
-        } else {
-            const errorData = await response.json();
-            const errorMessage = errorData.message || 'An error occurred.';
-            setErrorMessage(errorMessage);
-            setIsErrorVisible(true);
-
-            setSuccessMessage('');
-            setIsSuccessVisible(false);
-
-            setTimeout(() => {
-                setIsErrorVisible(false);
-                setErrorMessage('');
-            }, 1000);
 
 
 
@@ -206,12 +179,6 @@ function SaleForm () {
                             <input onChange={handlePriceChange} value={price} placeholder="Price" required type="text" name="price" id="price" className="form-control" />
                         </div>
                         <button className="btn btn-primary">Create</button>
-                        {isSuccessVisible && (
-                            <div className="alert alert-success">{successMessage}</div>
-                        )}
-                        {isErrorVisible && (
-                            <div className="alert alert-danger">{errorMessage}</div>
-                        )}
                     </form>
                 </div>
             </div>
