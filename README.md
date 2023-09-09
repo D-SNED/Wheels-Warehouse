@@ -97,9 +97,9 @@ Explain your models and integration with the inventory
 microservice, here.
 
 The service microservice contains three models:
-    Technician, Appointment and AutomobileVO.
+    `Technician`, `Appointment` and `AutomobileVO`.
 
-** Technician **
+### Technician ###
 
 The `Technician` model contains all the instances of a technician. The model attributes are `first_name`, `last_name` and `employee_id` In the microservice we have two view functions relating to technicians. The first view related to technicians is the `api_list_technicians` view. This view will do one of two things depending on the request it recieves. It will either return a list of dictionaries of all the technicians, create a new instance of a technician or return an error message. The second view is `api_delete_technican` and will delete a specific technician instance that has the same `id` specified in the request url.
 
@@ -110,6 +110,60 @@ The endpoints for technians are as follows:
 | List Technicians | GET | http://localhost:8080/api/technicians/ |
 | Create Technician | POST | http://localhost:8080/api/technicians/ |
 | Delete Technician | DELETE | http://localhost:8080/api/technicians/<int:id>/ |
+
+** Example JSON for  technician endpoints **
+
+** Creating a technician **
+
+```
+// Example input for creating a technician //
+
+	{
+		"first_name": "Derek",
+		"last_name": "Snediker",
+		"employee_id": "Dsnediker"
+	}
+```
+
+```
+// Example output for creating a technician //
+
+	{
+		"id": 1,
+		"first_name": "Derek",
+		"last_name": "Snediker",
+		"employee_id": "Dsnediker"
+	}
+```
+
+```
+// Example error message for creating a technician //
+	{"message": "Could not create technician"}
+```
+
+** List Technicians **
+
+```
+// Expected output for List Technicians //
+
+	{
+	"technicians": [
+		{
+			"id": 1,
+			"first_name": "Derek",
+			"last_name": "Snediker",
+			"employee_id": "Dsnediker"
+		},
+		{
+			"id": 2,
+			"first_name": "Amanda",
+			"last_name": "Taing",
+			"employee_id": "Ataing"
+		}
+	  ]
+	}
+```
+
 
 
 
