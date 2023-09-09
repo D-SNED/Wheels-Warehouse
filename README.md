@@ -111,12 +111,8 @@ The endpoints for technians are as follows:
 | Create Technician | POST | http://localhost:8080/api/technicians/ |
 | Delete Technician | DELETE | http://localhost:8080/api/technicians/<int:id>/ |
 
-**Example JSON for  technician endpoints**
 
-**Creating a technician**
-
-
-**Example input for creating a technician**
+Example input for creating a technician
 ```
 
 	{
@@ -127,7 +123,7 @@ The endpoints for technians are as follows:
 ```
 
 
-**Example output for creating a technician**
+Example output for creating a technician
 ```
 
 	{
@@ -138,16 +134,14 @@ The endpoints for technians are as follows:
 	}
 ```
 
-**Example error message for creating a technician**
 
+Example error message for creating a technician
 ```
 	{"message": "Could not create technician"}
 ```
 
 
-**List Technicians**
-
-**Expected output for List Technicians**
+Expected output for List Technicians
 ```
 	{
 	"technicians": [
