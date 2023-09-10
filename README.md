@@ -372,7 +372,7 @@ If the id of the appointment is invalid, this error message will appear:
 ```
 
 
-###Automobile VO###
+### Automobile VO ###
 
 The `Automobile Vo` model containes all instances of any autombiles that are created. The model attrivutes are `vin` and `sold`. The `Automobile Vo` is constantly updated due to a poller that is "looking" at the automobile information in the `Automoblile` model in the **Inventory Microservice**. When the poller encouters an automobile instance it looks at the `vin` for that auto and either updates the information in the `Automobile VO` or it creates a new value object matching that `vin`.
 
