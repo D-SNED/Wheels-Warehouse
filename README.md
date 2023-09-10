@@ -101,7 +101,7 @@ The service microservice contains three models:
 
 ### Technician ###
 
-The `Technician` model contains all the instances of a technician. The model attributes are `first_name`, `last_name` and `employee_id` In the microservice we have two view functions relating to technicians. The first view related to technicians is the `api_list_technicians` view. This view will do one of two things depending on the request it recieves. It will either return a list of dictionaries of all the technicians, create a new instance of a technician or return an error message. The second view is `api_delete_technican` and will delete a specific technician instance that has the same `id` specified in the request url.
+The `Technician` model contains all the instances of a technician. The model attributes are `first_name`, `last_name` and `employee_id`. There are two view functions relating to technicians. The first view related to technicians is the `api_list_technicians` view. This view will do one of two things depending on the request it recieves. It will either return a list of dictionaries of all the technicians, create a new instance of a technician or return an error message. The second view is `api_delete_technican` and will delete a specific technician instance that has the same `id` specified in the request url.
 
 The endpoints for technians are as follows:
 
@@ -153,14 +153,18 @@ Expected output for List Technicians
 		},
 		{
 			"id": 2,
-			"first_name": "Amanda",
-			"last_name": "Taing",
-			"employee_id": "Ataing"
+			"first_name": "Bob",
+			"last_name": "Snediker",
+			"employee_id": "Bsnediker"
 		}
 	  ]
 	}
 ```
 
+
+### Appointments ###
+
+The `Appointment` model contains all the instances of an appointment. The model attributes are `date-time`, `reason`, `status`, `vin`, `customer`, `is_vip` and `technician`. The technician attribute is a foreign key to the appointment model. This indicates that a technician can be associated with many appointments. There are two view functions relating to appointments. The first view related to the appointment model is the `api_list_appointments` view. This view will do one of two things depending on the request it recieves. It will either return a list of dictionaries of all the appointments, create a new instance of an appointments or return an error message. The second view is `api_appointment` and will delete a specific appointments instance that has the same `id` specified in the request url or it will update the status
 
 
 
