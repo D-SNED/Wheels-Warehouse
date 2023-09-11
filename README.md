@@ -155,6 +155,7 @@ Takes 4 input fields; first name, last name, address and phone number.
 | List of sales | GET | http://localhost:8090/api/sales/ |
 | Create a sale | POST | http://localhost:8090/api/sales/ |
 | Delete a sale | DELETE | http://localhost:8090/api/sales/int:id/ |
+| Get a specific sale | GET | http://localhost:8090/api/sales/int:id/ |
 
 ```
 // Example JSON input //
@@ -209,6 +210,7 @@ Takes 4 input fields; first name, last name, address and phone number.
 | List of salespeople | GET | http://localhost:8090/api/salespeople/ |
 | Create a salesperson | POST | http://localhost:8090/api/salespeople/ |
 | Delete a salesperson | DELETE | http://localhost:8090/api/salespeople/int:id/ |
+| Get a specific salesperson | GET | http://localhost:8090/api/salespeople/int:id/ |
 
 ```
 // Example JSON input //
@@ -246,6 +248,7 @@ Takes 4 input fields; first name, last name, address and phone number.
 | List of customers | GET | http://localhost:8090/api/customers/ |
 | Create a customer | POST | http://localhost:8090/api/customers/ |
 | Delete a customer | DELETE | http://localhost:8090/api/customers/int:id/ |
+| Get a specific customer | GET | http://localhost:8090/api/customers/int:id/ |
 
 ```
 // Example JSON input //

@@ -37,7 +37,7 @@ function SalespersonForm () {
             setLastName('');
             setEmployeeId('');
 
-            // success and error message
+            // success and error messages
             setSuccessMessage('Salesperson created successfully!');
             setIsSuccessVisible(true);
 
