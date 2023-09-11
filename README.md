@@ -93,8 +93,290 @@ Project CarCar Frontend can be viewed in browser at: http://localhost:3000
 
 ## Service microservice
 
-Explain your models and integration with the inventory
-microservice, here.
+
+The service microservice contains three models:
+    `Technician`, `Appointment` and `AutomobileVO`.
+
+### Technician ###
+
+The `Technician` model contains all the instances of a technician. The model attributes are `first_name`, `last_name` and `employee_id`. There are two view functions relating to technicians. The first view related to technicians is the `api_list_technicians` view. This view will do one of two things depending on the request it recieves. It will either return a list of dictionaries of all the technicians, create a new instance of a technician or return an error message. The second view is `api_delete_technican` and will delete a specific technician instance that has the same `id` specified in the request url.
+
+The endpoints for technians are as follows:
+
+| Action | Method | URL |
+| ------- | --------| ------ |
+| List Technicians | GET | http://localhost:8080/api/technicians/ |
+| Create Technician | POST | http://localhost:8080/api/technicians/ |
+| Delete Technician | DELETE | http://localhost:8080/api/technicians/<int:id>/ |
+
+
+Example input for creating a technician
+```
+
+	{
+		"first_name": "Derek",
+		"last_name": "Snediker",
+		"employee_id": "Dsnediker"
+	}
+```
+
+
+Example output for creating a technician
+```
+
+	{
+		"id": 1,
+		"first_name": "Derek",
+		"last_name": "Snediker",
+		"employee_id": "Dsnediker"
+	}
+```
+
+
+Example error message for creating a technician
+```
+	{"message": "Could not create technician"}
+```
+
+
+Expected output for List Technicians
+```
+	{
+	"technicians": [
+		{
+			"id": 1,
+			"first_name": "Derek",
+			"last_name": "Snediker",
+			"employee_id": "Dsnediker"
+		},
+		{
+			"id": 2,
+			"first_name": "Bob",
+			"last_name": "Snediker",
+			"employee_id": "Bsnediker"
+		}
+	  ]
+	}
+```
+
+To delete a technician, provide a valid id associated with a technician instance. If given an invalid id you will recieve this output:
+
+```
+{
+	"message": "Does not exist"
+}
+```
+
+For a valid id you will see this output:
+
+```
+{
+	"id": null,
+	"first_name": "Paula",
+	"last_name": "Alcala",
+	"employee_id": "Palcala"
+}
+
+```
+
+
+### Appointments ###
+
+The `Appointment` model contains all the instances of an appointment. The model attributes are `date-time`, `reason`, `status`, `vin`, `customer`, `is_vip` and `technician`. The technician attribute is a foreign key to the appointment model. This indicates that a technician can be associated with many appointments. There are two view functions relating to appointments. The first view related to the appointment model is the `api_list_appointments` view. This view will do one of two things depending on the request it recieves. It will either return a list of dictionaries of all the appointments, create a new instance of an appointments or return an error message. The second view is `api_appointment` and will delete a specific appointments instance that has the same `id` specified in the request url or it will update the status of an appointment from `created` to either `finished` or `canceled`
+
+
+The endpoints for appointments are as follows:
+
+| Action | Method | URL |
+| ------- | --------| ------ |
+| List Appintments | GET | http://localhost:8080/api/appointments/ |
+| Create Appointment | POST | http://localhost:8080/api/appointments/ |
+| Delete Appointment | DELETE | http://localhost:8080/api/appointments/<int:id>/ |
+| Update Appointment to Canceled | PUT | http://localhost:8080/api/appointments/<int:id>/cancel/ |
+| Update Appointment to Finished | PUT | http://localhost:8080/api/appointments/<int:id>/finish/ |
+
+
+Example input for creating an appointment
+```
+
+	{
+	"date_time": "2023-09-20T17:00:00+00:00",
+	"reason": "Tires",
+	"vin": "1GKDT13W6P2533357",
+	"customer": "Bob Dylan",
+	"technician": "Ataing",
+	"is_vip": true
+}
+```
+
+
+Example output for creating an appointment
+```
+
+	{
+	"id": 20,
+	"date_time": "2023-09-20T17:00:00+00:00",
+	"reason": "Tires",
+	"status": "created",
+	"vin": "1GKDT13W6P2533357",
+	"customer": "Bob Dylan",
+	"is_vip": true,
+	"technician": {
+		"id": 2,
+		"first_name": "Amanda",
+		"last_name": "Taing",
+		"employee_id": "Ataing"
+	}
+}
+```
+
+
+Example error message for creating an appointment
+```
+	{"message": "Invalid employee id"}
+```
+
+
+Expected output for List Appointments
+```
+	{
+	"appointments": [
+		{
+			"id": 1,
+			"date_time": "2023-09-07T12:00:00+00:00",
+			"reason": "Windshield",
+			"status": "canceled",
+			"vin": "JH4DB1561MS001102",
+			"customer": "John Doe",
+			"is_vip": false,
+			"technician": {
+				"id": 1,
+				"first_name": "Derek",
+				"last_name": "Snediker",
+				"employee_id": "Dsnediker"
+			}
+		},
+		{
+			"id": 11,
+			"date_time": "2023-09-08T10:30:00+00:00",
+			"reason": "Makes load rattling noise",
+			"status": "canceled",
+			"vin": "JH4DB1671NS000248",
+			"customer": "Bob Snediker",
+			"is_vip": false,
+			"technician": {
+				"id": 7,
+				"first_name": "Jake",
+				"last_name": "Ascher",
+				"employee_id": "Jascher"
+			}
+		}
+	  ]
+	}
+```
+
+To delete an appointment, provide a valid id associated with an appointment instance. If given an invalid id you will recieve this output:
+
+```
+{
+	"message": "Appointment does not exist"
+}
+```
+
+For a valid id you will see this output:
+
+```
+{
+	"id": null,
+	"date_time": "2023-09-10T12:00:00+00:00",
+	"reason": "Tires",
+	"status": "canceled",
+	"vin": "5FNRL38918B111818",
+	"customer": "Johnny Cash",
+	"is_vip": true,
+	"technician": {
+		"id": 1,
+		"first_name": "Derek",
+		"last_name": "Snediker",
+		"employee_id": "Dsnediker"
+	}
+}
+
+```
+
+To update an appointment to canceled provide a valid id of an already existing appointment.
+An example in put will look like this:
+```
+{
+	"status":"canceled"
+}
+```
+
+The output will be:
+```
+{
+	"id": 20,
+	"date_time": "2023-09-20T17:00:00+00:00",
+	"reason": "Tires",
+	"status": "canceled",
+	"vin": "1GKDT13W6P2533357",
+	"customer": "Bob Dylan",
+	"is_vip": true,
+	"technician": {
+		"id": 2,
+		"first_name": "Amanda",
+		"last_name": "Taing",
+		"employee_id": "Ataing"
+	}
+}
+
+```
+
+If the id of the appointment is invalid, this error message will appear:
+```
+{"message": "Does not exist"}
+```
+
+
+To update an appointment to finished provide a valid id of an already existing appointment.
+An example in put will look like this:
+```
+{
+	"status":"finsihed"
+}
+```
+
+The output will be:
+```
+{
+	"id": 24,
+	"date_time": "2023-09-20T17:00:00+00:00",
+	"reason": "Tires",
+	"status": "finished",
+	"vin": "1GKDT13W6P2533357",
+	"customer": "Bob Dylan",
+	"is_vip": true,
+	"technician": {
+		"id": 7,
+		"first_name": "Jake",
+		"last_name": "Ascher",
+		"employee_id": "Jascher"
+	}
+}
+
+```
+
+If the id of the appointment is invalid, this error message will appear:
+```
+{"message": "Does not exist"}
+```
+
+
+### Automobile VO ###
+
+The `Automobile Vo` model containes all instances of any autombiles that are created. The model attrivutes are `vin` and `sold`. The `Automobile Vo` is constantly updated due to a poller that is "looking" at the automobile information in the `Automoblile` model in the **Inventory Microservice**. When the poller encouters an automobile instance it looks at the `vin` for that auto and either updates the information in the `Automobile VO` or it creates a new value object matching that `vin`.
+
+
 
 ## Sales microservice
 
