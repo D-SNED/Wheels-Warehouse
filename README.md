@@ -558,7 +558,7 @@ Takes 4 input fields; first name, last name, address and phone number.
 // expected returned output after a sale is deleted //
 
 {
-	"deleted": false
+	"deleted": true
 }
 
 ```
