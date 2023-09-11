@@ -94,7 +94,7 @@ function AppointmentForm(){
             <div className="offset-3 col-6">
             <div className="shadow p-4 mt-4">
                 <h1>Create a Service Appointment</h1>
-                <form onSubmit={handleSubmit} id="create-conference-form">
+                <form onSubmit={handleSubmit} id="create-appointment-form">
                     <div className="form-floating mb-3">
                         <input onChange={handleVinChange} value={vin} placeholder="Automobile VIN" required type="text" id="automobile-vin" name="automobile-vin" className="form-control"/>
                         <label htmlFor="automobile-vin">Automobile VIN</label>
