@@ -383,13 +383,13 @@ The `Automobile Vo` model containes all instances of any autombiles that are cre
 Explain your models and integration with the inventory
 microservice, here.
 
-The Sales microservice manages automobile sales, customer information and salespeople information. Sales microservice consists of three main parts; sales, salespeople, amd customers. I created four models named Sale, Salesperson, Customer and an Atomobile VO model. The Automobile VO model retrieves the automobile entity object's data from the Inventory microservice using polling.
+The Sales microservice manages automobile sales, customer information and salespeople information. `Sales microservice` consists of three main parts; sales, salespeople, amd customers. I created four models named `Sale`, `Salesperson`, `Customer` and an `Atomobile VO` model. The Automobile VO model retrieves the automobile entity object's data from the Inventory microservice using polling.
 
 ### Models
 
 **AutomobileVO**
 
-Retrieves the vin and sold status of an existing Automobile in the inventory
+Retrieves the `vin` and `sold` status of an existing Automobile in the inventory
 
 | Name        | Data Type     | Explanation
 | ----------- | ----------- | ------------- |
@@ -398,7 +398,7 @@ Retrieves the vin and sold status of an existing Automobile in the inventory
 
 **Sale**
 
-Takes an input for price and uses 3 foreign keys to associate with the AutomobileVO, salesperson, and customer models to retrieve some of their attributes.
+Takes an input for `price` and uses 3 foreign keys to associate with the `AutomobileVO`, `salesperson`, and `customer` models to retrieve some of their attributes.
 
 | Name        | Data Type     | Explanation
 | ----------- | ----------- | ------------- |
@@ -409,7 +409,7 @@ Takes an input for price and uses 3 foreign keys to associate with the Automobil
 
 **Salesperson**
 
-Takes 3 input fields; first name, last name, and an employee id.
+Takes 3 input fields; `first name`, `last name`, and an `employee id`.
 
 | Name        | Data Type     | Explanation
 | ----------- | ----------- | ------------- |
@@ -419,7 +419,7 @@ Takes 3 input fields; first name, last name, and an employee id.
 
 **Customer**
 
-Takes 4 input fields; first name, last name, address and phone number.
+Takes 4 input fields; `first name`, `last name`, `address` and `phone number`.
 
 | Name        | Data Type     | Explanation
 | ----------- | ----------- | ------------- |
@@ -440,7 +440,39 @@ Takes 4 input fields; first name, last name, address and phone number.
 | Get a specific sale | GET | http://localhost:8090/api/sales/int:id/ |
 
 ```
-// Example JSON input //
+// Expected output for list of sales //
+{
+	"sales": [
+		{
+			"href": "/api/sales/32/",
+			"price": "10000",
+			"automobile": {
+				"vin": "1C4BJWDG8DL559834",
+				"sold": true,
+				"id": 5
+			},
+			"salesperson": {
+				"first_name": "Kathy",
+				"last_name": "Gomez",
+				"employee_id": "5678",
+				"id": 2
+			},
+			"customer": {
+				"first_name": "Josh",
+				"last_name": "Vasquez",
+				"address": "7486 Mission Blvd",
+				"phone_number": "19513675363",
+				"id": 7
+			},
+			"id": 32
+		},
+	]
+}
+
+```
+
+```
+// Example JSON input for creating a sale //
 {
 	"price": "18000",
 	"salesperson": "3",
@@ -448,7 +480,7 @@ Takes 4 input fields; first name, last name, address and phone number.
 	"automobile": "1P4GH44R0RX359386"
 }
 
-// expected returned output //
+// expected returned output after a sale is created //
 
 {
 	"href": "/api/sales/25/",
@@ -495,7 +527,23 @@ Takes 4 input fields; first name, last name, address and phone number.
 | Get a specific salesperson | GET | http://localhost:8090/api/salespeople/int:id/ |
 
 ```
-// Example JSON input //
+// Expected output for list of salespeople //
+
+{
+	"salespeople": [
+		{
+			"first_name": "Kathy",
+			"last_name": "Gomez",
+			"employee_id": "5678",
+			"id": 2
+		},
+	]
+}
+
+```
+
+```
+// Example JSON input for creating a salesperson //
 
 {
 	"first_name": "Paola",
@@ -503,7 +551,7 @@ Takes 4 input fields; first name, last name, address and phone number.
 	"employee_id": "1234"
 }
 
-// expected returned output //
+// expected returned output after a salesperson is created //
 
 {
 	"first_name": "Paola",
@@ -533,7 +581,24 @@ Takes 4 input fields; first name, last name, address and phone number.
 | Get a specific customer | GET | http://localhost:8090/api/customers/int:id/ |
 
 ```
-// Example JSON input //
+// Expected output for list of customers //
+
+{
+	"customers": [
+		{
+			"first_name": "Josh",
+			"last_name": "Vasquez",
+			"address": "7486 Mission Blvd",
+			"phone_number": "19513675363",
+			"id": 7
+		},
+	]
+}
+
+```
+
+```
+// Example JSON input for creating a customer //
 
 {
 	"first_name": "Derek",
@@ -542,7 +607,7 @@ Takes 4 input fields; first name, last name, address and phone number.
 	"phone_number": "9519512563"
 }
 
-// expected returned output //
+// expected returned output  after a customer is created //
 
 {
 	"first_name": "Derek",
