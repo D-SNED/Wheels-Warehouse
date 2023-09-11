@@ -545,8 +545,8 @@ Takes 4 input fields; first name, last name, address and phone number.
 // expected returned output //
 
 {
-	"first_name": "Brenda",
-	"last_name": "Ayala",
+	"first_name": "Derek",
+	"last_name": "Snediker",
 	"address": "3032 Tyler Ave Riverside Ca",
 	"phone_number": "9519512563",
 	"id": 3
